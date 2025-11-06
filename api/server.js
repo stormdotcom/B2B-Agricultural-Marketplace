@@ -1,8 +1,8 @@
 import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
-import { PORT } from './config/index.js';
-import appRoutes from './routes/index.js';
+import { PORT } from './src/config/index.js';
+import appRoutes from './src/routes/index.js';
 
 const app = express();
 app.use(cors());
