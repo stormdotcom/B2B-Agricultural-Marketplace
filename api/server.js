@@ -17,7 +17,7 @@ app.use(
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.get("/", (req, res)=> res.send("Live"))
+app.get("/", (req, res)=> res.send("Live working"))
 app.use('/api', appRoutes);
 
 app.listen(PORT, () => console.log(` Server running on port ${PORT}`));
