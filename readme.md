@@ -6,7 +6,7 @@ A full-stack project Agricultural Marketplace
 ##  Project Structure
 ```
 
-TASKS/
+B2B-Agricultural-Marketplace/
 │
 ├── api/   # Backend - Express.js (Node)
 │
