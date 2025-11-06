@@ -4,7 +4,6 @@ import { fileURLToPath } from "url";
 import { farmers } from "../data/farmers.js";
 import { sendMail } from "./mailService.js";
 
-// Fix for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -30,7 +29,7 @@ export const notifyFarmers = (farmers, product, quantity, deliveryDate, notes) =
       ` Hi ${f.name}, A buyer needs ${product} (${quantity}) by ${deliveryDate}. Notes: ${notes || "N/A"}`
     );
 
-    // Append email details to emailLog.json
+   
     const logEntry = {
       email: f.email,
       product,
