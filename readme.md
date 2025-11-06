@@ -1,6 +1,9 @@
 # B2B Agricultural Marketplace
 
 A full-stack project Agricultural Marketplace
+<img width="1264" height="901" alt="image" src="https://github.com/user-attachments/assets/9799812b-145a-46a0-b75f-0dbcdf5e2bb9" />
+<img width="1380" height="910" alt="image" src="https://github.com/user-attachments/assets/845e2ed7-15aa-4c62-baf4-82ffb20b0fdd" />
+<img width="1645" height="900" alt="image" src="https://github.com/user-attachments/assets/d57e9b60-6b94-446b-b964-7b84b50689b9" />
 
 
 ##  Project Structure
