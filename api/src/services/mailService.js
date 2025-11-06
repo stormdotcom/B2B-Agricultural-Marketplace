@@ -37,7 +37,7 @@ function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes
 
         <div style="background-color: #f0f4f0; padding: 15px 20px; text-align: center; font-size: 13px; color: #666;">
           <p style="margin: 0;">© ${new Date().getFullYear()} Agri Marketplace. All rights reserved.</p>
-          <p style="margin: 4px 0 0;">Built with 🌾 for smarter agriculture.</p>
+          <p style="margin: 4px 0 0;">Built with for smarter agriculture.</p>
         </div>
       </div>
     </div>
