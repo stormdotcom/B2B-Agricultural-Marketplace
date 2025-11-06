@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Sprout } from 'lucide-react';
-import FormInput from '../components/FormInput';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../components/Button';
+import FormInput from '../components/FormInput';
 import NotificationBox from '../components/NotificationBox';
-import { submitRequirement, resetState } from '../features/requirements/requirementsSlice';
+import { resetState, submitRequirement } from '../features/requirements/requirementsSlice';
 
 const AddRequirementPage = () => {
   const dispatch = useDispatch();
@@ -147,9 +147,7 @@ const AddRequirementPage = () => {
           </form>
         </div>
 
-        <div className="mt-6 text-center text-sm text-gray-500">
-          <p>Your requirement will be shared with verified farmers in our network</p>
-        </div>
+      
       </div>
     </div>
   );
