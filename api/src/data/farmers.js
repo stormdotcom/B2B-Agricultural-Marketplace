@@ -1,5 +1,5 @@
 export const farmers = [
-  { name: 'John Smith', email: 'john.potato@farm.com', product: 'potato' },
-  { name: 'Maria Garcia', email: 'maria.tomato@farm.com', product: 'tomato' },
-  { name: 'David Chen', email: 'david.tomato@farm.com', product: 'tomato' }
+  { name: 'John Smith', email: 'Pbfgmarketplace@gmail.com', product: 'potato' },
+  { name: 'Maria Garcia', email: 'ajmaln73@gmail.com', product: 'tomato' },
+  { name: 'David Chen', email: 'Pbfgmarketplace@gmail.com', product: 'tomato' }
 ];

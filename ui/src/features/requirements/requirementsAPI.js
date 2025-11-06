@@ -1,13 +1,7 @@
-import axios from 'axios';
+import { axiosApi } from "../../app/axios";
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
 
 export const postRequirement = async (requirementData) => {
-  const response = await api.post('/requirements', requirementData);
+  const response = await axiosApi.post('/requirements', requirementData);
   return response.data;
 };

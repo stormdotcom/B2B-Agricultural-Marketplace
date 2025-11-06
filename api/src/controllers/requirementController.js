@@ -14,7 +14,7 @@ export const addRequirement = (req, res) => {
   }
 
   notifyFarmers(matches, productName, quantity, deliveryDate, notes);
-  // todo save the requirement as json data
+
   res.json({
     message: `Notified: ${matches.map(f => f.name).join(', ')}`
   });

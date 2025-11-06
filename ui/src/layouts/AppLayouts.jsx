@@ -1,7 +1,7 @@
 import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
 
-const AppLayouts = ({ children }) => {
+const AppLayout = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
@@ -11,4 +11,4 @@ const AppLayouts = ({ children }) => {
   );
 };
 
-export default AppLayouts;
+export default AppLayout;

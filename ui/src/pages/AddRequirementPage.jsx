@@ -53,11 +53,11 @@ const AddRequirementPage = () => {
     <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="bg-primary p-3 rounded-full">
+            <div className="p-3 rounded-full">
               <Sprout className="text-white" size={32} />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Add Requirement</h1>
+        
           <p className="text-gray-600">Submit your product requirements to farmers</p>
         </div>
 
