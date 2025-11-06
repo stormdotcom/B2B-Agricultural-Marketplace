@@ -10,7 +10,7 @@ export const findMatchingFarmers = (product) => {
 export const notifyFarmers = (farmers, product, quantity, deliveryDate, notes) => {
   farmers.forEach(f => {
       sendMail( { to:f.email,
-        subject:`New Product Inquiry | ${product}`,
+        subject:`New Requirement Alert | ${product}`,
         farmerName: f.name,
         quantity,
         product,
