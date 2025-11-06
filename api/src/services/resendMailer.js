@@ -6,7 +6,7 @@ const resend = new Resend(RESEND_API_KEY);
 export async function sendMailWithResend({ to, subject, html }) {
   try {
     const result = await resend.emails.send({
-      from: 'ajmaln73@gmail.com',  // must match your verified domain
+      from: 'mailer@ajmalnasumudeen.in',  
       to,
       subject,
       html,
