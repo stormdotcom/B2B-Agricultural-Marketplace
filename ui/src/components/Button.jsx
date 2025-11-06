@@ -4,7 +4,7 @@ const Button = ({ children, type = 'button', disabled = false, loading = false, 
       type={type}
       disabled={disabled || loading}
       onClick={onClick}
-      className={`w-full bg-gradient-to-r from-primary to-accent text-white font-semibold py-3 px-6 rounded-lg
+      className={`w-full bg-gradient-to-r from-primary to-accent bg-green-200 text-green-900 font-semibold py-3 px-6 rounded-lg
         hover:from-accent hover:to-primary transform hover:scale-[1.02] transition-all duration-300
         disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-md hover:shadow-lg ${className}`}
     >

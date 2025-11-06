@@ -1,19 +1,19 @@
 import { findMatchingFarmers, notifyFarmers } from '../services/farmerService.js';
 
 export const addRequirement = (req, res) => {
-  const { product, quantity, deliveryDate, notes } = req.body;
-
-  if (!product || !quantity || !deliveryDate) {
+  const { productName, quantity, deliveryDate, notes } = req.body;
+  console.log(req.body)
+  if (!productName || !quantity || !deliveryDate) {
     return res.status(400).json({ message: 'Missing required fields' });
   }
 
-  const matches = findMatchingFarmers(product);
+  const matches = findMatchingFarmers(productName);
 
   if (matches.length === 0) {
-    return res.json({ message: `No farmers found for "${product}"` });
+    return res.json({ message: `No farmers found for "${productName}"` });
   }
 
-  notifyFarmers(matches, product, quantity, deliveryDate, notes);
+  notifyFarmers(matches, productName, quantity, deliveryDate, notes);
   // todo save the requirement as json data
   res.json({
     message: `Notified: ${matches.map(f => f.name).join(', ')}`

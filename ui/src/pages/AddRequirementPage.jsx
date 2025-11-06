@@ -1,82 +1,56 @@
+import { useFormik } from 'formik';
 import { Sprout } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
 import Button from '../components/Button';
 import FormInput from '../components/FormInput';
 import NotificationBox from '../components/NotificationBox';
 import { resetState, submitRequirement } from '../features/requirements/requirementsSlice';
 
+
+const validationSchema = Yup.object({
+  productName: Yup.string().trim().required('Product name is required'),
+  quantity: Yup.number().positive('Quantity must be greater than 0').required('Quantity is required'),
+  deliveryDate: Yup.date().required('Delivery date is required'),
+  notes: Yup.string(),
+});
+
 const AddRequirementPage = () => {
   const dispatch = useDispatch();
   const { loading, success, error, message } = useSelector((state) => state.requirements);
 
-  const [formData, setFormData] = useState({
-    productName: '',
-    quantity: '',
-    deliveryDate: '',
-    notes: '',
+  // ✅ Formik setup
+  const formik = useFormik({
+    initialValues: {
+      productName: '',
+      quantity: '',
+      deliveryDate: '',
+      notes: '',
+    },
+    validationSchema,
+    onSubmit: async (values, { resetForm }) => {
+      const resultAction = await dispatch(submitRequirement(values));
+
+      if (submitRequirement.fulfilled.match(resultAction)) {
+        toast.success(resultAction.payload?.message || 'Requirement submitted!');
+        resetForm();
+      } else {
+        toast.error(resultAction.payload?.message || 'Something went wrong!');
+      }
+    },
   });
 
-  const [validationErrors, setValidationErrors] = useState({});
-
   useEffect(() => {
-    if (success) {
-      setFormData({
-        productName: '',
-        quantity: '',
-        deliveryDate: '',
-        notes: '',
-      });
-      setValidationErrors({});
+    if (success || error) {
+      const timer = setTimeout(() => dispatch(resetState()), 3000);
+      return () => clearTimeout(timer);
     }
-  }, [success]);
-
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
-    if (validationErrors[id]) {
-      setValidationErrors((prev) => ({
-        ...prev,
-        [id]: '',
-      }));
-    }
-  };
-
-  const validateForm = () => {
-    const errors = {};
-    if (!formData.productName.trim()) {
-      errors.productName = 'Product name is required';
-    }
-    if (!formData.quantity || formData.quantity <= 0) {
-      errors.quantity = 'Quantity must be greater than 0';
-    }
-    if (!formData.deliveryDate) {
-      errors.deliveryDate = 'Delivery date is required';
-    }
-    return errors;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const errors = validateForm();
-    if (Object.keys(errors).length > 0) {
-      setValidationErrors(errors);
-      return;
-    }
-
-    dispatch(submitRequirement(formData));
-  };
-
-  const handleCloseNotification = () => {
-    dispatch(resetState());
-  };
+  }, [success, error, dispatch]);
 
   return (
-    <div className="min-h-screen bg-background py-12 px-4 sm:px-6 lg:px-8">
+    <div className=" bg-background ">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
@@ -85,7 +59,7 @@ const AddRequirementPage = () => {
             </div>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Add Requirement</h1>
-          <p className="text-gray-600">Submit your agricultural product requirements to our network of farmers</p>
+          <p className="text-gray-600">Submit your product requirements to farmers</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-lg border border-secondary/30 p-8">
@@ -93,19 +67,20 @@ const AddRequirementPage = () => {
             <NotificationBox
               type={success ? 'success' : 'error'}
               message={success ? message : error}
-              onClose={handleCloseNotification}
+              onClose={() => dispatch(resetState())}
             />
           )}
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={formik.handleSubmit} className="space-y-4">
             <FormInput
               label="Product Name"
               id="productName"
               type="text"
               required
-              value={formData.productName}
-              onChange={handleChange}
-              error={validationErrors.productName}
+              value={formik.values.productName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.productName && formik.errors.productName}
               placeholder="e.g., Organic Wheat, Fresh Tomatoes"
             />
 
@@ -114,9 +89,10 @@ const AddRequirementPage = () => {
               id="quantity"
               type="number"
               required
-              value={formData.quantity}
-              onChange={handleChange}
-              error={validationErrors.quantity}
+              value={formik.values.quantity}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.quantity && formik.errors.quantity}
               placeholder="e.g., 1000 kg"
               min="1"
             />
@@ -126,9 +102,10 @@ const AddRequirementPage = () => {
               id="deliveryDate"
               type="date"
               required
-              value={formData.deliveryDate}
-              onChange={handleChange}
-              error={validationErrors.deliveryDate}
+              value={formik.values.deliveryDate}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.deliveryDate && formik.errors.deliveryDate}
               min={new Date().toISOString().split('T')[0]}
             />
 
@@ -136,8 +113,9 @@ const AddRequirementPage = () => {
               label="Notes"
               id="notes"
               type="textarea"
-              value={formData.notes}
-              onChange={handleChange}
+              value={formik.values.notes}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="Any additional requirements or specifications..."
             />
 
@@ -146,8 +124,6 @@ const AddRequirementPage = () => {
             </Button>
           </form>
         </div>
-
-      
       </div>
     </div>
   );
