@@ -17,7 +17,7 @@ export const notifyFarmers = (farmers, product, quantity, deliveryDate, notes) =
   farmers.forEach((f) => {
     sendMail({
       to: f.email,
-      subject: `New Requirement Alert | ${product}`,
+      subject: `New Product Requirement Alert | ${product}`,
       farmerName: f.name,
       quantity,
       product,
