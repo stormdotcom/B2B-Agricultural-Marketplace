@@ -2,7 +2,7 @@ import { Sprout } from 'lucide-react';
 
 const Header = () => {
   return (
-    <header className="bg-primary text-green-800 shadow-md">
+    <header className="bg-primary text-white shadow-md">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
         <div className="flex items-center gap-3">

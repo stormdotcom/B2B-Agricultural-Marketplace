@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="bg-primary text-green-900 mt-16">
+    <footer className="bg-primary text-white mt-16">
       <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
         <p className="text-sm">
           © {new Date().getFullYear()} B2B Agricultural Marketplace. All rights reserved.
