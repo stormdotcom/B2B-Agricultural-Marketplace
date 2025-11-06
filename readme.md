@@ -1,8 +1,7 @@
 # B2B Agricultural Marketplace
 
-A full-stack project for managing buyer product requirements and notifying farmers.
+A full-stack project Agricultural Marketplace
 
----
 
 ##  Project Structure
 ```
@@ -28,7 +27,7 @@ TASKS/
 - React Hot Toast
 
 ### Backend (API)
-- Node.js
+- Node.js v22.14.0
 - Express.js (ES Modules)
 - CORS
 
@@ -69,5 +68,3 @@ Runs on **[http://localhost:5173](http://localhost:5173)**
 
 ```
 VITE_API_BASE_URL=http://localhost:3000/api
-```
-
