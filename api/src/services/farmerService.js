@@ -25,9 +25,6 @@ export const notifyFarmers = (farmers, product, quantity, deliveryDate, notes) =
       notes,
     });
 
-    console.log(
-      ` Hi ${f.name}, A buyer needs ${product} (${quantity}) by ${deliveryDate}. Notes: ${notes || "N/A"}`
-    );
 
    
     const logEntry = {

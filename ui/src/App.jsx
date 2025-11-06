@@ -14,13 +14,13 @@ function App() {
               value="add"
               className="data-[state=active]:bg-green-700 data-[state=active]:text-white px-4 py-2 rounded-lg text-green-800"
             >
-              Add Requirement
+               Requirement
             </TabsTrigger>
             <TabsTrigger
               value="farmers"
               className="data-[state=active]:bg-green-700 data-[state=active]:text-white px-4 py-2 rounded-lg text-green-800"
             >
-              View Farmers
+               Farmers
             </TabsTrigger>
           </TabsList>
 
