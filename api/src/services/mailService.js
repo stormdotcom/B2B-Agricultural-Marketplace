@@ -1,9 +1,5 @@
 import nodemailer from "nodemailer";
-
-const EMAIL_ID = process.env.EMAIL_ID;
-const EMAIL_PASS = process.env.EMAIL_PASS;
-const SMTP_HOST = process.env.SMTP_HOST || "smtp.hostinger.com";
-const SMTP_PORT = parseInt(process.env.SMTP_PORT || "465", 10);
+import { EMAIL_ID, EMAIL_PASS, SMTP_HOST, SMTP_PORT } from "../config/index.js";
 
 
 function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes }) {
@@ -48,21 +44,21 @@ function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes
   `;
 }
 
-// ✅ Updated to use SMTP instead of Gmail OAuth2
+
 export async function sendMail({ to, subject, farmerName, product, quantity, deliveryDate, notes }) {
   try {
-    // --- Create SMTP Transporter (Hostinger / standard SMTP) ---
+    
     const transporter = nodemailer.createTransport({
       host: SMTP_HOST,
       port: SMTP_PORT,
-      secure: SMTP_PORT === 465, // use SSL for port 465
+      secure: SMTP_PORT === 465, 
       auth: {
         user: EMAIL_ID,
         pass: EMAIL_PASS,
       },
     });
 
-    // --- Build email content ---
+
     const htmlTemplate = buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes });
 
     const mailOptions = {
@@ -73,7 +69,6 @@ export async function sendMail({ to, subject, farmerName, product, quantity, del
       text: `Hi ${farmerName}, A buyer needs ${product} (${quantity}) by ${deliveryDate}. Notes: ${notes || "N/A"}`,
     };
 
-    // --- Send mail ---
     const result = await transporter.sendMail(mailOptions);
     console.log(`✅ Email sent to ${to}: ${subject}`);
     return result;

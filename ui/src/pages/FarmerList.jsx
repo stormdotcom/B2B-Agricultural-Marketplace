@@ -17,7 +17,7 @@ function FarmerListTab() {
     <div className="w-full flex justify-center mt-10">
       <div className="bg-white shadow-lg rounded-xl w-full max-w-3xl overflow-hidden border border-green-200">
         <div className="bg-green-800 text-white text-lg font-semibold p-4 text-center">
-          🌾 Farmer List
+         Farmer List
         </div>
 
         <table className="w-full border-collapse text-sm">
@@ -43,7 +43,7 @@ function FarmerListTab() {
         </table>
 
         <div className="bg-green-50 text-center text-xs text-gray-600 py-3">
-          Total farmers: {farmers.length}
+          
         </div>
       </div>
     </div>

@@ -1,5 +1,4 @@
 import { useFormik } from 'formik';
-import { Sprout } from 'lucide-react';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,12 +51,7 @@ const AddRequirementPage = () => {
   return (
     <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="p-3 rounded-full">
-              <Sprout className="text-white" size={32} />
-            </div>
-          </div>
-        
+          <h1 className="text-gray-800 font-bold text 3xl my-2">Add Requirement</h1>
           <p className="text-gray-600">Submit your product requirements to farmers</p>
         </div>
 

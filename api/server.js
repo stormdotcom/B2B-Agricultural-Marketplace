@@ -1,8 +1,11 @@
 import cors from 'cors';
+import "dotenv/config";
 import express from 'express';
 import morgan from 'morgan';
 import { PORT } from './src/config/index.js';
 import appRoutes from './src/routes/index.js';
+
+
 
 const app = express();
 app.use(cors());
