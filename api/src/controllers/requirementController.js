@@ -2,7 +2,7 @@ import { findMatchingFarmers, notifyFarmers } from '../services/farmerService.js
 
 export const addRequirement = (req, res) => {
   const { productName, quantity, deliveryDate, notes } = req.body;
-  console.log(req.body)
+
   if (!productName || !quantity || !deliveryDate) {
     return res.status(400).json({ message: 'Missing required fields' });
   }
@@ -22,6 +22,6 @@ export const addRequirement = (req, res) => {
 
 export const getRequirements = (res, req) => {
   res.json({
-    message: `Notified:`
+    message: `All requirements:`
   });
 }

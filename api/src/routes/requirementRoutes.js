@@ -4,6 +4,6 @@ import { addRequirement, getRequirements } from '../controllers/requirementContr
 const router = express.Router();
 
 router.post('/', addRequirement);
-router.get('/', getRequirements);
+router.get('/', getRequirements); // TODO
 
 export default router;
