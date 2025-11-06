@@ -12,7 +12,7 @@ import { resetState, submitRequirement } from '../features/requirements/requirem
 
 const validationSchema = Yup.object({
   productName: Yup.string().trim().required('Product name is required'),
-  quantity: Yup.number().positive('Quantity must be greater than 0').required('Quantity is required'),
+  quantity: Yup.number().positive('Quantity must be greater than 0').required('Quantity is required').max(999999),
   deliveryDate: Yup.date().required('Delivery date is required'),
   notes: Yup.string(),
 });
@@ -21,7 +21,7 @@ const AddRequirementPage = () => {
   const dispatch = useDispatch();
   const { loading, success, error, message } = useSelector((state) => state.requirements);
 
-  // ✅ Formik setup
+
   const formik = useFormik({
     initialValues: {
       productName: '',
@@ -94,6 +94,7 @@ const AddRequirementPage = () => {
               error={formik.touched.quantity && formik.errors.quantity}
               placeholder="e.g., 1000 kg"
               min="1"
+              max="999999"
             />
 
             <FormInput
