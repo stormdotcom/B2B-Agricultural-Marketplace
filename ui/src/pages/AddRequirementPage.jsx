@@ -92,7 +92,7 @@ const AddRequirementPage = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.quantity && formik.errors.quantity}
-              placeholder="e.g., 1000 kg"
+              placeholder="e.g., 1000"
               min="1"
               max="999999"
             />
