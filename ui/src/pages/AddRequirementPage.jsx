@@ -50,8 +50,7 @@ const AddRequirementPage = () => {
   }, [success, error, dispatch]);
 
   return (
-    <div className=" bg-background ">
-      <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             <div className="bg-primary p-3 rounded-full">
@@ -125,7 +124,6 @@ const AddRequirementPage = () => {
           </form>
         </div>
       </div>
-    </div>
   );
 };
 
