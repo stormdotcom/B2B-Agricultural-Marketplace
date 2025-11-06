@@ -5,22 +5,19 @@ A full-stack project Agricultural Marketplace
 <img width="1380" height="910" alt="image" src="https://github.com/user-attachments/assets/845e2ed7-15aa-4c62-baf4-82ffb20b0fdd" />
 <img width="1645" height="900" alt="image" src="https://github.com/user-attachments/assets/d57e9b60-6b94-446b-b964-7b84b50689b9" />
 
-
-##  Project Structure
+## Project Structure
 ```
-
 B2B-Agricultural-Marketplace/
 │
 ├── api/   # Backend - Express.js (Node)
 │
 └── ui/    # Frontend - React (Vite)
-
-````
+```
 
 ---
 
-##  Tech Stack
-###  Frontend (UI)
+## Tech Stack
+### Frontend (UI)
 - React (Vite)
 - Redux Toolkit + Redux Logger
 - Axios
@@ -36,20 +33,19 @@ B2B-Agricultural-Marketplace/
 
 ---
 
-##  How to Start
+## How to Start
 
 ## Clone Repo
 ```bash
- git clone https://github.com/stormdotcom/B2B-Agricultural-Marketplace
+git clone https://github.com/stormdotcom/B2B-Agricultural-Marketplace
+```
 
- ```
-
-###  Start Backend
+### Start Backend
 ```bash
 cd api
 npm install
 npm run dev
-````
+```
 
 Runs on **[http://localhost:4000](http://localhost:4000)**
 
@@ -71,3 +67,12 @@ Runs on **[http://localhost:5173](http://localhost:5173)**
 
 ```
 VITE_API_BASE_URL=http://localhost:3000/api
+```
+
+**Backend (`api/.env`):**
+
+To set up the backend environment variables, follow these steps:
+
+1. Check the `.env.example` file in the `api` directory for the required environment variables.
+2. Copy the secrets and configuration from `.env.example` to a new file named `.env`.
+3. Ensure all necessary secrets are correctly set in the `.env` file.
