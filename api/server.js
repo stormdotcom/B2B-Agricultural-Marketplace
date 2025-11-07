@@ -11,8 +11,9 @@ import appRoutes from './src/routes/index.js';
 const app = express();
 app.use(
   cors({
-    origin: ["https://marketplace-agri.vercel.app", "http:localhost:5173"],        
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+    origin: ["http://localhost:5173"],        
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(express.json());

@@ -21,13 +21,12 @@ function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes
             <strong>${deliveryDate}</strong>.
           </p>
 
-          ${
-            notes
-              ? `<p style="margin-top: 10px; background: #f9fafb; border-left: 4px solid #2f855a; padding: 10px 12px; border-radius: 5px;">
+          ${notes
+      ? `<p style="margin-top: 10px; background: #f9fafb; border-left: 4px solid #2f855a; padding: 10px 12px; border-radius: 5px;">
                    <em>Note from buyer:</em> ${notes}
                  </p>`
-              : ""
-          }
+      : ""
+    }
 
           <p style="margin-top: 24px; font-size: 15px;">Please reply or reach out if you can fulfill this order.</p>
 
@@ -48,14 +47,17 @@ function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes
 
 export async function sendMail({ to, subject, farmerName, product, quantity, deliveryDate, notes }) {
   try {
-      console.log("here")
+    console.log("here")
     const transporter = nodemailer.createTransport({
       host: SMTP_HOST,
       port: SMTP_PORT,
-      secure: SMTP_PORT === 465, 
+      secure: false,
       auth: {
         user: EMAIL_ID,
         pass: EMAIL_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false,
       },
     });
 
@@ -71,7 +73,7 @@ export async function sendMail({ to, subject, farmerName, product, quantity, del
     };
 
     const result = await transporter.sendMail(mailOptions);
-    await sendMailWithResend({to, subject, html})
+    await sendMailWithResend({ to, subject, html })
     console.log(`✅ Email sent to ${to}: ${subject}`);
     return result;
   } catch (error) {
