@@ -7,15 +7,15 @@ import { sendMail } from "./mailService.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export const findMatchingFarmers = (product) => {
+export const findMatchingFarmers =  (product) => {
   return farmers.filter((f) =>
     product.toLowerCase().includes(f.product.toLowerCase())
   );
 };
 
-export const notifyFarmers = (farmers, product, quantity, deliveryDate, notes) => {
-  farmers.forEach((f) => {
-    sendMail({
+export const notifyFarmers =async (farmers, product, quantity, deliveryDate, notes) => {
+  farmers.forEach(async (f) => {
+    await sendMail({
       to: f.email,
       subject: `New Product Requirement Alert | ${product}`,
       farmerName: f.name,

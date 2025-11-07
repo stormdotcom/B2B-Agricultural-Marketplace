@@ -1,27 +1,29 @@
-import { findMatchingFarmers, notifyFarmers } from '../services/farmerService.js';
+import { findMatchingFarmers, notifyFarmers } from "../services/farmerService.js";
+import { errorResponse, successResponse } from "../utils/response.js";
 
-export const addRequirement = (req, res) => {
+export const addRequirement = async (req, res) => {
   const { productName, quantity, deliveryDate, notes } = req.body;
 
   if (!productName || !quantity || !deliveryDate) {
-    return res.status(400).json({ message: 'Missing required fields' });
+    return errorResponse(res, "Missing required fields", 400);
   }
 
-  const matches = findMatchingFarmers(productName);
+  const matches =  findMatchingFarmers(productName);
 
-  if (matches.length === 0) {
-    return res.json({ message: `No farmers found for "${productName}"` });
+  if (!matches || matches.length === 0) {
+    return successResponse(res, `No farmers found for "${productName}"`);
   }
 
-  notifyFarmers(matches, productName, quantity, deliveryDate, notes);
+  await notifyFarmers(matches, productName, quantity, deliveryDate, notes);
 
-  res.json({
-    message: `Notified: ${matches.map(f => f.name).join(', ')}`
-  });
+  return successResponse(
+    res,
+    `Notified: ${matches.map(f => f.name).join(", ")}`,
+    { notifiedFarmers: matches }
+  );
 };
 
-export const getRequirements = (res, req) => {
-  res.json({
-    message: `All requirements:`
-  });
-}
+export const getRequirements = async (req, res) => {
+  const requirements = []; 
+  return successResponse(res, "All requirements", requirements);
+};
