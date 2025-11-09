@@ -74,7 +74,7 @@ export async function sendMail({ to, subject, farmerName, product, quantity, del
     };
 
     const result = await transporter.sendMail(mailOptions);
-    await sendMailWithResend({ to, subject: subject + "| RESEND", html })
+    await sendMailWithResend({ to, subject: subject + " | RESEND" })
     console.log(`✅ Email sent to ${to}: ${subject}`);
     return result;
   } catch (error) {
