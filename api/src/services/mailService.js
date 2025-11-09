@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { EMAIL_ID, EMAIL_PASS, SMTP_HOST, SMTP_PORT } from "../config/index.js";
+import { sendMailWithResend } from "./resendMailer.js";
 
 
 function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes }) {
@@ -73,7 +74,7 @@ export async function sendMail({ to, subject, farmerName, product, quantity, del
     };
 
     const result = await transporter.sendMail(mailOptions);
-    // await sendMailWithResend({ to, subject, html })
+    await sendMailWithResend({ to, subject, html })
     console.log(`✅ Email sent to ${to}: ${subject}`);
     return result;
   } catch (error) {
