@@ -1,6 +1,19 @@
-export const farmers = [
+ const farmers = [
   { name: 'John Smith', email: 'Pbfgmarketplace@gmail.com', product: 'potato' },
   { name: 'Maria Garcia', email: 'Pbfgmarketplace@gmail.com', product: 'tomato' },
   { name: 'David Chen', email: 'Pbfgmarketplace@gmail.com', product: 'wheat' },
-   { name: 'Test Farmer', email: 'tomstorms11@gmail.com', product: 'rice' }
+   { name: 'Test Farmer', email: 'tomstorms11@gmail.com', product: 'rice' },
+    { name: 'Test2 ', email: 'ajmaln73@gmail.com', product: 'test' }
+
 ];
+
+// if development, add more farmers, add  { name: 'Test2 ', email: 'ajmaln73@gmail.com', product: 'test' }
+if (process.env.NODE_ENV === 'development') {
+  farmers.push(
+    { name: 'Test2 ', email: 'ajmaln73@gmail.com', product: 'test' }
+  );
+}
+
+
+export { farmers };
+
