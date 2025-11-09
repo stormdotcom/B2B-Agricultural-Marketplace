@@ -12,8 +12,9 @@ export async function sendMailWithResend({ to, subject, html }) {
       html,
     });
 
-    console.log('✅ Mail sent:', result);
+    console.log('✅ Mail sent resend:', result);
   } catch (err) {
-    console.error('❌ Failed to send:', err);
+    console.error('❌ Failed to send using resend:', err);
+    throw err;
   }
 }
