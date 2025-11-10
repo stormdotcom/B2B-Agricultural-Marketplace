@@ -67,7 +67,7 @@ export async function sendMail({ to, subject, farmerName, product, quantity, del
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": API_TOKEN,
+        "Authorization": `Bearer ${API_TOKEN}`,
       },
       body: JSON.stringify(payload),
     });
