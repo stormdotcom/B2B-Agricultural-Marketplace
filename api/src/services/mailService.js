@@ -1,6 +1,6 @@
-import fetch from "node-fetch";
+import axios from "axios";
 
-const API_TOKEN = "337d33937566b219e6cf4d232c9d006c03b6540ca8a07bca"
+const API_TOKEN = "337d33937566b219e6cf4d232c9d006c03b6540ca8a07bca";
 
 function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes }) {
   return `
@@ -13,7 +13,6 @@ function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes
         
         <div style="padding: 25px 30px; color: #333333;">
           <p style="font-size: 16px; margin-bottom: 12px;">Hi <strong>${farmerName}</strong>,</p>
-          
           <p style="font-size: 15px; line-height: 1.6;">
             A buyer has requested <strong style="color: #2f855a;">${product}</strong>
             (Quantity: <strong>${quantity}</strong>) to be delivered by 
@@ -29,15 +28,10 @@ function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes
           }
 
           <p style="margin-top: 24px; font-size: 15px;">Please reply or reach out if you can fulfill this order.</p>
-
-          <div style="margin-top: 30px; text-align: center;">
-            <a href="#" style="display: inline-block; background-color: #2f855a; color: #ffffff; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: 600;">View Details</a>
-          </div>
         </div>
 
         <div style="background-color: #f0f4f0; padding: 15px 20px; text-align: center; font-size: 13px; color: #666;">
           <p style="margin: 0;">© ${new Date().getFullYear()} Agri Marketplace. All rights reserved.</p>
-          <p style="margin: 4px 0 0;">Built with for smarter agriculture.</p>
         </div>
       </div>
     </div>
@@ -46,7 +40,7 @@ function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes
 
 export async function sendMail({ to, subject, farmerName, product, quantity, deliveryDate, notes }) {
   try {
-    console.log("📨 Forwarding to  mailer API…");
+    console.log("📨 Forwarding to mailer API…");
 
     const htmlTemplate = buildEmailTemplate({
       farmerName,
@@ -63,23 +57,30 @@ export async function sendMail({ to, subject, farmerName, product, quantity, del
       text: `Hi ${farmerName}, A buyer needs ${product} (${quantity}) by ${deliveryDate}. Notes: ${notes || "N/A"}`,
     };
 
-    const response = await fetch("http://mailer.ajmalnasumudeen.in/api/send", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${API_TOKEN}`,
-      },
-      body: JSON.stringify(payload),
-    });
-    console.log(response.data)
- 
-    const data = await response.json();
+    const response = await axios.post(
+      "http://mailer.ajmalnasumudeen.in/api/send",
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${API_TOKEN}`,
+        },
+        timeout: 8000, // ✅ avoid hanging
+      }
+    );
 
     console.log(`✅ Mail forwarded for ${to} : ${subject}`);
 
-    return data;
+    return response.data;
   } catch (error) {
-    console.error("❌ sendMail() failed:", error.message);
+    console.error("❌ sendMail() failed:");
+
+    if (error.response) {
+      console.error("↳ API responded:", error.response.status, error.response.data);
+    } else {
+      console.error("↳ Error:", error.message);
+    }
+
     throw error;
   }
 }

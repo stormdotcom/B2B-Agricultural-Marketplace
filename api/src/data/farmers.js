@@ -7,7 +7,6 @@
 
 ];
 
-// if development, add more farmers, add  { name: 'Test2 ', email: 'ajmaln73@gmail.com', product: 'test' }
 if (process.env.NODE_ENV === 'development') {
   farmers.push(
     { name: 'Test2 ', email: 'ajmaln73@gmail.com', product: 'test' }
