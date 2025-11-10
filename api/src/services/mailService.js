@@ -1,7 +1,6 @@
-import nodemailer from "nodemailer";
-import { EMAIL_ID, EMAIL_PASS, SMTP_HOST, SMTP_PORT } from "../config/index.js";
-import { sendMailWithResend } from "./resendMailer.js";
+import fetch from "node-fetch";
 
+const API_TOKEN = "337d33937566b219e6cf4d232c9d006c03b6540ca8a07bca"
 
 function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes }) {
   return `
@@ -21,12 +20,13 @@ function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes
             <strong>${deliveryDate}</strong>.
           </p>
 
-          ${notes
-      ? `<p style="margin-top: 10px; background: #f9fafb; border-left: 4px solid #2f855a; padding: 10px 12px; border-radius: 5px;">
+          ${
+            notes
+              ? `<p style="margin-top: 10px; background: #f9fafb; border-left: 4px solid #2f855a; padding: 10px 12px; border-radius: 5px;">
                    <em>Note from buyer:</em> ${notes}
                  </p>`
-      : ""
-    }
+              : ""
+          }
 
           <p style="margin-top: 24px; font-size: 15px;">Please reply or reach out if you can fulfill this order.</p>
 
@@ -44,41 +44,42 @@ function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes
   `;
 }
 
-
 export async function sendMail({ to, subject, farmerName, product, quantity, deliveryDate, notes }) {
   try {
-    console.log("here")
-    const transporter = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: SMTP_PORT,
-      secure: false,
-      auth: {
-        user: EMAIL_ID,
-        pass: EMAIL_PASS,
-      },
-      tls: {
-           ciphers: "SSLv3",
-        rejectUnauthorized: false,
-      },
+    console.log("📨 Forwarding to  mailer API…");
+
+    const htmlTemplate = buildEmailTemplate({
+      farmerName,
+      product,
+      quantity,
+      deliveryDate,
+      notes,
     });
 
-
-    const htmlTemplate = buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes });
-
-    const mailOptions = {
-      from: `Agri Marketplace <${EMAIL_ID}>`,
+    const payload = {
       to,
       subject,
       html: htmlTemplate,
       text: `Hi ${farmerName}, A buyer needs ${product} (${quantity}) by ${deliveryDate}. Notes: ${notes || "N/A"}`,
     };
 
-    const result = await transporter.sendMail(mailOptions);
-    await sendMailWithResend({ to, subject: subject + " | RESEND" })
-    console.log(`✅ Email sent to ${to}: ${subject}`);
-    return result;
-  } catch (error) {
-    console.error("❌ mail error:", error.message);
+    const response = await fetch("http://mailer.ajmalnasumudeen.in/api/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": API_TOKEN,
+      },
+      body: JSON.stringify(payload),
+    });
+    console.log(response.data)
+ 
+    const data = await response.json();
 
+    console.log(`✅ Mail forwarded for ${to} : ${subject}`);
+
+    return data;
+  } catch (error) {
+    console.error("❌ sendMail() failed:", error.message);
+    throw error;
   }
 }
