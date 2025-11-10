@@ -40,7 +40,7 @@ function buildEmailTemplate({ farmerName, product, quantity, deliveryDate, notes
 
 export async function sendMail({ to, subject, farmerName, product, quantity, deliveryDate, notes }) {
   try {
-    console.log("📨 Forwarding to mailer API…");
+    
 
     const htmlTemplate = buildEmailTemplate({
       farmerName,
@@ -69,7 +69,7 @@ export async function sendMail({ to, subject, farmerName, product, quantity, del
       }
     );
 
-    console.log(`✅ Mail forwarded for ${to} : ${subject}`);
+    console.log(`✅ Mail forwarded for }`);
 
     return response.data;
   } catch (error) {
