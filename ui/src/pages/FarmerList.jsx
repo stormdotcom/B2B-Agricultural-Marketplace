@@ -1,31 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFarmers } from "../features/farmers/farmersSlice";
 
 function FarmerListTab() {
   const dispatch = useDispatch();
-  const [showIdleMessage, setShowIdleMessage] = useState(false);
   const { data: farmers, loading, error } = useSelector((state) => state.farmers);
 
   useEffect(() => {
     dispatch(fetchFarmers());
-    const timer = setTimeout(() => {
-      if (loading) {
-        setShowIdleMessage(true);
-      }
-    }, 3000);
+  }, [dispatch]);
 
-    return () => clearTimeout(timer);
-  }, [dispatch, loading]);
-
-  if (loading) {
-    return (
-      <div className="text-center text-gray-500">
-        <p>Loading...</p>
-        {showIdleMessage && <p>The server might be idle/sleeping. It may take up to 15 seconds to kick in.</p>}
-      </div>
-    );
-  }
+  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
   if (error) return <p className="text-center text-red-600">{error}</p>;
 
   return (
